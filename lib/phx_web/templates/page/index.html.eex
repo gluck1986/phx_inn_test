@@ -1,0 +1,14 @@
+<section class="phx-hero">
+  <h1>Проверка ИНН</h1>
+  <div class="row">
+    <input id="inn-input" type="text"></input>
+    <input type="button" id="inn_button" value="Отправить">
+  </div>
+
+  <ul id="last_check">
+  <%= for check <- @checks do %>
+    <li>[<%= check.inserted_at %>] <%= check.inn %> : <%= check.valid %></li>
+  <% end %>
+  </ul>
+</section>
+
