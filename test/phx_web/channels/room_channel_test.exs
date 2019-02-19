@@ -1,6 +1,6 @@
 defmodule PhxWeb.RoomChannelTest do
   use PhxWeb.ChannelCase
-  import Ecto.Query
+  #import Ecto.Query
 
   #  setup do
   #    {:ok, _, socket} =

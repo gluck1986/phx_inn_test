@@ -1,7 +1,7 @@
 defmodule PhxWeb.UserSocket do
   use Phoenix.Socket
 
-  channel "room:*", Phx.RoomChannel
+  channel "room:*", PhxWeb.RoomChannel
   ## Channels
   # channel "room:*", PhxWeb.RoomChannel
 

@@ -1,5 +1,5 @@
 defmodule PhxWeb.RoomChannel do
-  use PhxWeb, :channel
+  use Phoenix.Channel
 
 #  def join("room:lobby", payload, socket) do
 #    if authorized?(payload) do
