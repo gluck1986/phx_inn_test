@@ -31,10 +31,12 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :guardian, Guardian,
-  issuer: "MyAppId",
-  secret_key: Mix.env(),
-  serializer: MyApp.GuardianSerializer
+config :phx, Phx.Users.Guardian,
+  issuer: "phx",
+  # ,
+  secret_key: Mix.env()
+
+# serializer: Phx.GuardianSerializer
 
 # config :phx, PhxWeb.Gettext, default_locale: "ru", locales: ~w(en ru)
 

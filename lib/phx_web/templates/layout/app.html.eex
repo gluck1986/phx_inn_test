@@ -12,6 +12,11 @@
       <section class="container">
         <nav role="navigation">
           <ul>
+          <%= if current_user(@conn) do %>
+          <li><span><%= link "Выйти(#{current_user(@conn).name})", to: Routes.session_path(@conn, :logout), method: :post%></span></li>
+          <% else %>
+             <li><a href="<%= Routes.session_path(@conn, :login) %>">Войти</a></li>
+          <% end  %>
             <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
           </ul>
         </nav>
@@ -21,6 +26,7 @@
       </section>
     </header>
     <main role="main" class="container">
+      <p class="alert alert-success" role="alert"><%= get_flash(@conn, :success) %></p>
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
       <%= render @view_module, @view_template, assigns %>

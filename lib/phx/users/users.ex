@@ -8,6 +8,22 @@ defmodule Phx.Users do
 
   alias Phx.Users.User
 
+  def authenticate_user(username, plain_text_password) do
+    query = from u in User, where: u.name == ^username
+
+    case Repo.one(query) do
+      nil ->
+        {:error, :invalid_credentials}
+
+      user ->
+        if Bcrypt.verify_pass(plain_text_password, user.pass_hash) do
+          {:ok, user}
+        else
+          {:error, :invalid_credentials}
+        end
+    end
+  end
+
   @doc """
   Returns the list of users.
 

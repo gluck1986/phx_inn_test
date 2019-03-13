@@ -6,9 +6,19 @@ defmodule Phx.UsersTest do
   describe "users" do
     alias Phx.Users.User
 
-    @valid_attrs %{admin: true, name: "some name", pass_hash: "some pass_hash"}
-    @update_attrs %{admin: false, name: "some updated name", pass_hash: "some updated pass_hash"}
-    @invalid_attrs %{admin: nil, name: nil, pass_hash: nil}
+    @valid_attrs %{
+      admin: true,
+      name: "some name",
+      password: "some_pass",
+      password_confirmation: "some_pass"
+    }
+    @update_attrs %{
+      admin: false,
+      name: "some updated name",
+      password: "some_pass1",
+      password_confirmation: "some_pass1"
+    }
+    @invalid_attrs %{admin: nil, name: nil, password: nil, password_confirmation: nil}
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
@@ -33,7 +43,6 @@ defmodule Phx.UsersTest do
       assert {:ok, %User{} = user} = Users.create_user(@valid_attrs)
       assert user.admin == true
       assert user.name == "some name"
-      assert user.pass_hash == "some pass_hash"
     end
 
     test "create_user/1 with invalid data returns error changeset" do
@@ -45,7 +54,6 @@ defmodule Phx.UsersTest do
       assert {:ok, %User{} = user} = Users.update_user(user, @update_attrs)
       assert user.admin == false
       assert user.name == "some updated name"
-      assert user.pass_hash == "some updated pass_hash"
     end
 
     test "update_user/2 with invalid data returns error changeset" do

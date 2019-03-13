@@ -16,3 +16,7 @@ config :phx, Phx.Repo,
   database: "phx_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :phx, Phx.Users.Guardian,
+  issuer: "phx",
+  secret_key: "GvnjBlTbbjZm6HoUQklSXAsLb7xFBNaPlTfQ/EGoI9jFk7E3E1XqiQDOIlYL3Vm1"

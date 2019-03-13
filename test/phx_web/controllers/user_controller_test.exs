@@ -3,9 +3,19 @@ defmodule PhxWeb.UserControllerTest do
 
   alias Phx.Users
 
-  @create_attrs %{admin: true, name: "some name", pass_hash: "some pass_hash"}
-  @update_attrs %{admin: false, name: "some updated name", pass_hash: "some updated pass_hash"}
-  @invalid_attrs %{admin: nil, name: nil, pass_hash: nil}
+  @create_attrs %{
+    admin: true,
+    name: "some name",
+    password: "some_pass",
+    password_confirmation: "some_pass"
+  }
+  @update_attrs %{
+    admin: false,
+    name: "some updated name",
+    password: "some_pass1",
+    password_confirmation: "some_pass1"
+  }
+  @invalid_attrs %{admin: nil, name: nil, password: nil, password_confirmation: nil}
 
   def fixture(:user) do
     {:ok, user} = Users.create_user(@create_attrs)

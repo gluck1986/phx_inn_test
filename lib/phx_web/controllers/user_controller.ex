@@ -1,6 +1,6 @@
 defmodule PhxWeb.UserController do
   use PhxWeb, :controller
-
+  plug :scrub_params, "user" when action in [:create]
   alias Phx.Users
   alias Phx.Users.User
 
