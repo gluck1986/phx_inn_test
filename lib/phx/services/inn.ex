@@ -54,11 +54,12 @@ defmodule Phx.Services.Inn do
      check what inn list is valid, by control number
      and try to insert inn and check result as new Phx.InnCheck db record
   """
-  @spec check_and_insert!(string()) :: {:ok, Ecto.Schema.t()} | {:error, Ecto.Changeset.t()}
-  def check_and_insert!(inn_string) do
+  @spec check_and_insert!(string(), string()) ::
+          {:ok, Ecto.Schema.t()} | {:error, Ecto.Changeset.t()}
+  def check_and_insert!(inn_string, ip) do
     is_inn_valid = Phx.Services.Inn.valid?(inn_string)
     inn = %Phx.InnCheck{}
-    inn_changeset = Phx.InnCheck.changeset(inn, %{inn: inn_string, valid: is_inn_valid})
+    inn_changeset = Phx.InnCheck.changeset(inn, %{inn: inn_string, valid: is_inn_valid, ip: ip})
     Phx.Repo.insert(inn_changeset)
   end
 end

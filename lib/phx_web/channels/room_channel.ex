@@ -30,10 +30,16 @@ defmodule PhxWeb.RoomChannel do
     {:error, %{reason: "unauthorized"}}
   end
 
-  def handle_in("new_inn", %{"body" => body}, socket) do
+  def handle_in(
+        "new_inn",
+        %{"body" => body},
+        socket
+      ) do
+    ip = socket.assigns.ip
+    # broadcast!(socket, "error", %{body: "Не известная ошибка"})
     is_input_valid? = fn body ->
       data = %{body: ""}
-      types = %{body: :string}
+      types = %{body: :string, ip: :string}
 
       changeset =
         Ecto.Changeset.cast({data, types}, %{body: body}, [:body])
@@ -44,12 +50,12 @@ defmodule PhxWeb.RoomChannel do
     end
 
     if is_input_valid?.(body) do
-      case Phx.Services.Inn.check_and_insert!(body) do
+      case Phx.Services.Inn.check_and_insert!(body, ip) do
         {:ok, inn_check} ->
           broadcast!(socket, "result", %{
             body:
               "[#{inn_check.inserted_at}] #{inn_check.inn} : #{
-                if inn_check.valid, do: "валиден", else: "не валиден"
+                if inn_check.valid, do: "Валиден", else: "Не валиден"
               } "
           })
 

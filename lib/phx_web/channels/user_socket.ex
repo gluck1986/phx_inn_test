@@ -16,8 +16,15 @@ defmodule PhxWeb.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket, _connect_info) do
-    {:ok, socket}
+  def connect(_params, socket, %{peer_data: %{address: ip}}) do
+    {:ok,
+     assign(
+       socket,
+       :ip,
+       ip
+       |> Tuple.to_list()
+       |> Enum.join(".")
+     )}
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
