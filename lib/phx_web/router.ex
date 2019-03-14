@@ -22,6 +22,12 @@ defmodule PhxWeb.Router do
   end
 
   scope "/", PhxWeb do
+    pipe_through [:browser, :auth, :ensure_auth]
+
+    resources "/inn_check", InnCheckController, only: [:index, :delete]
+  end
+
+  scope "/", PhxWeb do
     pipe_through [:browser, :auth]
 
     get "/login", SessionController, :new

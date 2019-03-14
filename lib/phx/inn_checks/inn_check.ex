@@ -1,4 +1,4 @@
-defmodule Phx.InnCheck do
+defmodule Phx.InnChecks.InnCheck do
   @moduledoc false
   use Ecto.Schema
 

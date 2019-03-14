@@ -58,8 +58,11 @@ defmodule Phx.Services.Inn do
           {:ok, Ecto.Schema.t()} | {:error, Ecto.Changeset.t()}
   def check_and_insert!(inn_string, ip) do
     is_inn_valid = Phx.Services.Inn.valid?(inn_string)
-    inn = %Phx.InnCheck{}
-    inn_changeset = Phx.InnCheck.changeset(inn, %{inn: inn_string, valid: is_inn_valid, ip: ip})
+    inn = %Phx.InnChecks.InnCheck{}
+
+    inn_changeset =
+      Phx.InnChecks.InnCheck.changeset(inn, %{inn: inn_string, valid: is_inn_valid, ip: ip})
+
     Phx.Repo.insert(inn_changeset)
   end
 end

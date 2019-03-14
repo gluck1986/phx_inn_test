@@ -4,7 +4,7 @@ defmodule PhxWeb.PageController do
 
   def index(conn, _params) do
     checks =
-      Phx.InnCheck
+      Phx.InnChecks.InnCheck
       |> order_by(desc: :inserted_at)
       |> Phx.Repo.all()
 

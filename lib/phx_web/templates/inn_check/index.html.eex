@@ -1,0 +1,25 @@
+<h1>Listing Inn check</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Inn</th>
+      <th>Результат</th>
+      <th>Ip</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for inn_check <- @inn_check do %>
+    <tr>
+      <td><%= inn_check.inn %></td>
+
+      <td><%= if inn_check.valid, do: "Валиден", else: "Не валиден"  %></td>
+      <td><%= inn_check.ip %></td>
+      <td>
+        <%= link "Delete", to: Routes.inn_check_path(@conn, :delete, inn_check), method: :delete, data: [confirm: "Are you sure?"] %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
