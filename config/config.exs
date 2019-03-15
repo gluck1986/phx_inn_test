@@ -33,8 +33,11 @@ config :phoenix, :json_library, Jason
 
 config :phx, Phx.Users.Guardian,
   issuer: "phx",
-  # ,
   secret_key: Mix.env()
+
+config :phx, Phx.Services.Redis,
+  host: "localhost",
+  port: 6379
 
 # serializer: Phx.GuardianSerializer
 

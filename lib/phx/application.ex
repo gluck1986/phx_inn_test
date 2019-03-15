@@ -11,9 +11,10 @@ defmodule Phx.Application do
       # Start the Ecto repository
       Phx.Repo,
       # Start the endpoint when the application starts
-      PhxWeb.Endpoint
+      PhxWeb.Endpoint,
       # Starts a worker by calling: Phx.Worker.start_link(arg)
       # {Phx.Worker, arg},
+      Phx.Services.Redis
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
