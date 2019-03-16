@@ -24,6 +24,8 @@ defmodule PhxWeb.Router do
   scope "/", PhxWeb do
     pipe_through [:browser, :auth, :ensure_auth]
 
+    post "/ip/lock", InnCheckController, :lock
+
     resources "/inn_check", InnCheckController, only: [:index, :delete]
   end
 

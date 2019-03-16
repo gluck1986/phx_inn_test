@@ -5,6 +5,7 @@ defmodule Phx.Services.Redis do
     # Specs for the Redix connections.
     host = Application.get_env(:phx, Phx.Services.Redis)[:host]
     port = Application.get_env(:phx, Phx.Services.Redis)[:port]
+
     children =
       for i <- 0..(@pool_size - 1) do
         Supervisor.child_spec({Redix, name: :"redix_#{i}", host: host, port: port}, id: {Redix, i})
@@ -20,6 +21,10 @@ defmodule Phx.Services.Redis do
 
   def command(command) do
     Redix.command(:"redix_#{random_index()}", command)
+  end
+
+  def pipeline(command) do
+    Redix.pipeline(:"redix_#{random_index()}", command)
   end
 
   defp random_index() do

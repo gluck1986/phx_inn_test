@@ -22,8 +22,6 @@ defmodule PhxWeb.UserSocket do
        socket,
        :ip,
        ip
-       |> Tuple.to_list()
-       |> Enum.join(".")
      )}
   end
 

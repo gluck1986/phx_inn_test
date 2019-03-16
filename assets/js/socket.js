@@ -64,28 +64,33 @@ const channel = socket.channel("room:inn", {});
 const input = document.querySelector("#inn-input");
 const button = document.querySelector('#inn_button');
 const messagesContainer = document.querySelector("#last_check");
-input.addEventListener("keypress", event => {
-    if (event.key === "Enter") {
+
+input && button && messagesContainer && (() => {
+    input.addEventListener("keypress", event => {
+        if (event.key === "Enter") {
+            channel.push("new_inn", {body: input.value});
+            input.value = "";
+        }
+    });
+
+    button.addEventListener('click', event => {
         channel.push("new_inn", {body: input.value});
         input.value = "";
-    }
-});
+    });
 
-button.addEventListener('click', event => {
-    channel.push("new_inn", {body: input.value});
-    input.value = "";
-});
+    channel.on("result", payload => {
+        const messageItem = document.createElement("li");
+        messageItem.innerText = `${payload.body}`;
+        const theFirstChild =  messagesContainer.firstChild;
+        messagesContainer.insertBefore(messageItem,theFirstChild);
+    });
 
-channel.on("result", payload => {
-    const messageItem = document.createElement("li");
-    messageItem.innerText = `${payload.body}`;
-    const theFirstChild =  messagesContainer.firstChild;
-    messagesContainer.insertBefore(messageItem,theFirstChild);
-});
+    channel.on("error", payload => {
+        alert(payload.body);
+    });
+})();
 
-channel.on("error", payload => {
-    alert(payload.body);
-});
+
 
 channel.join()
    .receive("ok", resp => { console.log("Joined successfully", resp) })

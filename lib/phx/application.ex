@@ -14,7 +14,8 @@ defmodule Phx.Application do
       PhxWeb.Endpoint,
       # Starts a worker by calling: Phx.Worker.start_link(arg)
       # {Phx.Worker, arg},
-      Phx.Services.Redis
+      Phx.Services.Redis,
+      Phx.Services.IpChildren
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

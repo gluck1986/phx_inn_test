@@ -21,6 +21,12 @@ defmodule Phx.InnChecks do
     Repo.all(InnCheck)
   end
 
+  def list_inn_check_ordered(order) do
+    InnCheck
+    |> order_by(^order)
+    |> Repo.all()
+  end
+
   @doc """
   Gets a single inn_check.
 

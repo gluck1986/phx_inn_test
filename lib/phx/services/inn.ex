@@ -3,7 +3,7 @@ defmodule Phx.Services.Inn do
     check what inn string is valid, by control number
   """
   @spec valid?(string()) :: boolean()
-  def valid?(inn) do
+  def valid?(inn) when is_binary(inn) do
     valid?(:list, String.graphemes(inn))
   end
 

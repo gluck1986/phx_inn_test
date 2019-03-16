@@ -7,6 +7,7 @@
       <th>Результат</th>
       <th>Ip</th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -16,6 +17,9 @@
 
       <td><%= if inn_check.valid, do: "Валиден", else: "Не валиден"  %></td>
       <td><%= inn_check.ip %></td>
+      <td><%=  button("Заблокировать", to: "/ip/lock", method: "post", class: "btn", data: [
+        ip: inn_check.ip, prompt: true, confirm: "Укажите время в секундах"
+      ]) %>  </td>
       <td>
         <%= link "Delete", to: Routes.inn_check_path(@conn, :delete, inn_check), method: :delete, data: [confirm: "Are you sure?"] %>
       </td>
