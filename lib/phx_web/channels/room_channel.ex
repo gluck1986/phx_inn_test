@@ -45,16 +45,15 @@ defmodule PhxWeb.RoomChannel do
                 } "
             })
 
+            {:noreply, socket}
+
           {:error, _changeset} ->
-            broadcast!(socket, "error", %{body: "Не известная ошибка"})
+            {:reply, {:error, %{body: "Не известная ошибка"}}, socket}
         end
 
       true ->
-        broadcast!(socket, "error", %{
-          body: "ИНН должен состоять из чисел и иметь 10 или 12 занков"
-        })
+        {:reply, {:error, %{body: "ИНН должен состоять из чисел и иметь 10 или 12 занков"}},
+         socket}
     end
-
-    {:noreply, socket}
   end
 end

@@ -66,16 +66,22 @@ const button = document.querySelector('#inn_button');
 const messagesContainer = document.querySelector("#last_check");
 
 input && button && messagesContainer && (() => {
+    const process = () => {
+        channel.push("new_inn", {body: input.value}).receive('error', function (payload)
+        {
+            alert(payload.body);
+        });
+        input.value = "";
+    };
+
     input.addEventListener("keypress", event => {
         if (event.key === "Enter") {
-            channel.push("new_inn", {body: input.value});
-            input.value = "";
+            process()
         }
     });
 
     button.addEventListener('click', event => {
-        channel.push("new_inn", {body: input.value});
-        input.value = "";
+        process()
     });
 
     channel.on("result", payload => {
@@ -83,10 +89,6 @@ input && button && messagesContainer && (() => {
         messageItem.innerText = `${payload.body}`;
         const theFirstChild =  messagesContainer.firstChild;
         messagesContainer.insertBefore(messageItem,theFirstChild);
-    });
-
-    channel.on("error", payload => {
-        alert(payload.body);
     });
 })();
 
