@@ -5,5 +5,4 @@ defmodule PhxWeb.InnCheckView do
     user = Guardian.Plug.current_resource(conn)
     :ok == Bodyguard.permit(Phx.Policy, :ip_operation, user, nil)
   end
-
 end

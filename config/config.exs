@@ -41,8 +41,7 @@ config :phx, Phx.Services.Redis,
 
 config :phx, Phx.Services.IpChildren,
   rate: 2000,
-  storage_key: "lockedips"
-
+  storage_key: "lockedi_ps"
 
 # config :phx, PhxWeb.Gettext, default_locale: "ru", locales: ~w(en ru)
 

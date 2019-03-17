@@ -63,6 +63,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/plug_crypto" />
       <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/postgrex" />
       <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/ranch" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/redix" />
       <excludeFolder url="file://$MODULE_DIR$/_build/test/lib/telemetry" />
       <excludeFolder url="file://$MODULE_DIR$/assets/node_modules/phoenix" />
       <excludeFolder url="file://$MODULE_DIR$/assets/node_modules/phoenix_html" />
