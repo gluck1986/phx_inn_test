@@ -36,8 +36,7 @@ config :phx, Phx.Users.Guardian,
   secret_key: Mix.env()
 
 config :phx, Phx.Services.Redis,
-  host: "localhost",
-  port: 6379
+  uri: "redis://localhost:6379"
 
 config :phx, Phx.Services.IpChildren,
   rate: 2000,

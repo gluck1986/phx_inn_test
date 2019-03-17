@@ -26,8 +26,7 @@ config :phx, Phx.Repo,
        ssl: true
 
 config :phx, Phx.Services.Redis,
-       host: System.get_env("REDIS_URL"),
-       port: 6379
+      uri: System.get_env("REDIS_URL")
 
 # ## SSL Support
 #

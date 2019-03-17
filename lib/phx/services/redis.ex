@@ -3,12 +3,12 @@ defmodule Phx.Services.Redis do
 
   def child_spec(_args) do
     # Specs for the Redix connections.
-    host = Application.get_env(:phx, Phx.Services.Redis)[:host]
-    port = Application.get_env(:phx, Phx.Services.Redis)[:port]
+    uri = Application.get_env(:phx, Phx.Services.Redis)[:uri]
+    opts = Redix.URI.opts_from_uri(uri)
 
     children =
       for i <- 0..(@pool_size - 1) do
-        Supervisor.child_spec({Redix, name: :"redix_#{i}", host: host, port: port}, id: {Redix, i})
+        Supervisor.child_spec({Redix, Keyword.merge([name: :"redix_#{i}"], opts)}, id: {Redix, i})
       end
 
     # Spec for the supervisor that will supervise the Redix connections.
