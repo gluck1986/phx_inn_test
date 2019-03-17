@@ -26,7 +26,7 @@ defmodule PhxWeb.Router do
 
     post "/ip/lock", InnCheckController, :lock
 
-    resources "/inn_check", InnCheckController, only: [:index, :delete]
+    resources "/inn_checks", InnCheckController, only: [:index, :delete]
   end
 
   scope "/", PhxWeb do

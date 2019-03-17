@@ -9,19 +9,26 @@ defmodule PhxWeb.InnCheckController do
   end
 
   def lock(conn, %{"ip" => ip, "seconds" => seconds}) do
-    case Phx.Services.Ip.validate(ip, seconds) do
-      %{valid?: true} = changeset ->
-        Phx.Services.Ip.lock(changeset)
+    user = Guardian.Plug.current_resource(conn)
+    case Bodyguard.permit(Phx.Policy, :ip_operation, user, nil) do
+      :ok -> case Phx.Services.Ip.validate(ip, seconds) do
+               %{valid?: true} = changeset ->
+                 Phx.Services.Ip.lock(changeset)
+                 conn
+                 |> put_flash(:info, "Успешно заблокирован")
+                 |> redirect(to: Routes.inn_check_path(conn, :index))
 
-        conn
-        |> put_flash(:info, "Успешно заблокирован")
-        |> redirect(to: Routes.inn_check_path(conn, :index))
-
-      %{valid?: false} ->
-        conn
-        |> put_flash(:error, "Невозможно")
-        |> redirect(to: Routes.inn_check_path(conn, :index))
+               %{valid?: false} ->
+                 conn
+                 |> put_flash(:error, "Невозможно")
+                 |> redirect(to: Routes.inn_check_path(conn, :index))
+             end
+      _ ->  conn
+                |> put_flash(:error, "Запрещено")
+                |> redirect(to: Routes.inn_check_path(conn, :index))
     end
+
+
   end
 
   def delete(conn, %{"id" => id}) do

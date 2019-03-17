@@ -2,7 +2,7 @@ defmodule Phx.Services.Inn do
   @doc """
     check what inn string is valid, by control number
   """
-  @spec valid?(string()) :: boolean()
+  @spec valid?(String.t()) :: boolean()
   def valid?(inn) when is_binary(inn) do
     valid?(:list, String.graphemes(inn))
   end
@@ -32,14 +32,6 @@ defmodule Phx.Services.Inn do
     false
   end
 
-  @doc """
-     check what inn list is valid, by control number
-    iex> list =   ["6", "4", "4",  "9", "0", "1", "3", "7", "1"]
-    iex> k_list = [2, 4, 10, 3, 5, 9, 4, 6, 8]
-    iex> last = 1
-    iex> true = valid?(list, k_list, last)
-  """
-
   @spec valid?(list(), list(), integer()) :: boolean()
   defp valid?(list, k_list, last) do
     Enum.map(list, &String.to_integer(&1))
@@ -54,7 +46,7 @@ defmodule Phx.Services.Inn do
      check what inn list is valid, by control number
      and try to insert inn and check result as new Phx.InnCheck db record
   """
-  @spec check_and_insert!(string(), string()) ::
+  @spec check_and_insert!(String.t(), String.t()) ::
           {:ok, Ecto.Schema.t()} | {:error, Ecto.Changeset.t()}
   def check_and_insert!(inn_string, ip) do
     is_inn_valid = Phx.Services.Inn.valid?(inn_string)

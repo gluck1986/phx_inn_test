@@ -43,7 +43,6 @@ config :phx, Phx.Services.IpChildren,
   rate: 2000,
   storage_key: "lockedips"
 
-# serializer: Phx.GuardianSerializer
 
 # config :phx, PhxWeb.Gettext, default_locale: "ru", locales: ~w(en ru)
 

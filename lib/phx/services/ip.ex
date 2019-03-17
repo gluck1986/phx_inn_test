@@ -19,11 +19,15 @@ defmodule Phx.Services.Ip do
     changeset
   end
 
-  def is_lock_validator(%Ecto.Changeset{changes: %{ip: ip}} = changeset) do
+  defp is_lock_validator(%Ecto.Changeset{changes: %{ip: ip}} = changeset) do
     case changeset.valid? and is_lock?(ip) do
       true -> Ecto.Changeset.add_error(changeset, :ip, ip <> " уже заблокирован!")
       false -> changeset
     end
+  end
+
+  defp is_lock_validator(changeset) do
+    changeset
   end
 
   def lock(%Ecto.Changeset{changes: %{ip: ip, seconds: seconds}}) do
