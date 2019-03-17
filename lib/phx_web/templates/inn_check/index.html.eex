@@ -4,11 +4,11 @@
   <thead>
     <tr>
       <th>Inn</th>
-      <th>Результат</th>
       <%= if can_ip?(@conn) do %>
         <th>Ip</th>
         <th></th>
       <% end  %>
+      <th>Результат</th>
       <th></th>
     </tr>
   </thead>
