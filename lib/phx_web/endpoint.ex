@@ -2,7 +2,7 @@ defmodule PhxWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :phx
 
   socket "/socket", PhxWeb.UserSocket,
-    websocket: [connect_info: [:peer_data, :x_headers]],
+    websocket: [connect_info: [:peer_data, :x_headers], timeout: 45_000],
     longpoll: false
 
   # Serve at "/" the static files from "priv/static" directory.
