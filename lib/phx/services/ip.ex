@@ -11,9 +11,6 @@ defmodule Phx.Services.Ip do
       |> Ecto.Changeset.validate_required([:ip, :seconds])
       |> Ecto.Changeset.validate_number(:seconds, greater_than: 0)
       |> Ecto.Changeset.validate_number(:seconds, less_than: 9999)
-      |> Ecto.Changeset.validate_format(:ip, ~r/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/,
-        message: "Не является валидным Ip адресом!"
-      )
       |> is_lock_validator()
 
     changeset
@@ -34,38 +31,35 @@ defmodule Phx.Services.Ip do
     lock(ip, seconds)
   end
 
-  def lock(ip, seconds) do
+  def lock(ip, seconds) when is_tuple(ip) do
     ip
-    |> to_ipinteger
+    |> ip_to_string
     |> IpServer.lock(seconds)
   end
 
-  def is_lock?(ip) do
+  def lock(ip, seconds) do
+    IpServer.lock(ip, seconds)
+  end
+
+  def is_lock?(ip) when is_tuple(ip) do
     ip
-    |> to_ipinteger
+    |> ip_to_string
     |> IpServer.is_lock?()
   end
 
-  def to_string({octet1, octet2, octet3, octet4}) do
+  def is_lock?(ip) do
+    IpServer.is_lock?(ip)
+  end
+
+  def ip_to_string({octet1, octet2, octet3, octet4}) do
     ~s(#{octet1}.#{octet2}.#{octet3}.#{octet4})
   end
 
-  def to_ipinteger(address) when is_binary(address) do
-    String.split(address, ".")
-    |> Enum.map(&String.to_integer/1)
-    |> Enum.reduce({}, fn val, acc -> Tuple.append(acc, val) end)
-    |> to_ipinteger()
-  end
-
-  @doc "Turns an erlang-style IPv4 address (i.e. {192,168,1,1}) to a 32 bit decimal integer"
-  def to_ipinteger({octet1, octet2, octet3, octet4}) do
-    round(octet1 * :math.pow(256, 3) + octet2 * :math.pow(256, 2) + octet3 * 256 + octet4)
-  end
-
-  @doc "Turns a 32 bit decimal integer into an IPv4 address (i.e. 4-tuple {192,168,1,1})"
-  def to_ipaddress(address) when is_integer(address) do
-    [24, 16, 8, 0]
-    |> Enum.map(fn x -> address >>> x &&& 0xFF end)
-    |> List.to_tuple()
+  def ip_to_string({octet1, octet2, octet3, octet4, octet5, octet6, octet7, octet8}) do
+    ~s(#{Integer.to_string(octet1, 16)}:#{Integer.to_string(octet2, 16)}:#{
+      Integer.to_string(octet3, 16)
+    }:#{Integer.to_string(octet4, 16)}:#{Integer.to_string(octet5, 16)}:#{
+      Integer.to_string(octet6, 16)
+    }:#{Integer.to_string(octet7, 16)}:#{Integer.to_string(octet8, 16)})
   end
 end

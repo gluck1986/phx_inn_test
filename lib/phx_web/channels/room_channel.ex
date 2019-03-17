@@ -35,7 +35,7 @@ defmodule PhxWeb.RoomChannel do
       is_input_valid?.(body) ->
         case Phx.Services.Inn.check_and_insert!(
                body,
-               Ip.to_string(ip)
+               Ip.ip_to_string(ip)
              ) do
           {:ok, inn_check} ->
             broadcast!(socket, "result", %{

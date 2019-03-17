@@ -23,14 +23,14 @@ defmodule Phx.Services.IpServer do
     GenServer.cast(__MODULE__, {:process})
   end
 
-  def is_lock?(ip) when is_integer(ip) do
+  def is_lock?(ip) do
     case Phx.Services.Redis.command(["ZSCORE", @key, ip]) do
       {:ok, nil} -> false
       {:ok, _} -> true
     end
   end
 
-  def lock(ip, seconds) when is_integer(ip) and is_integer(seconds) do
+  def lock(ip, seconds) when is_integer(seconds) do
     time = System.system_time(:second) + seconds
 
     case false === is_lock?(ip) and Phx.Services.Redis.command(["zadd", @key, time, ip]) do
