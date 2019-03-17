@@ -28,6 +28,11 @@ config :phx, Phx.Repo,
 
 config :phx, Phx.Services.Redis, uri: System.get_env("REDIS_URL")
 
+config :phx, Phx.Users.Guardian,
+       issuer: "phx",
+       secret_key: System.get_env("GUARDIAN_SECRET")
+
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key
