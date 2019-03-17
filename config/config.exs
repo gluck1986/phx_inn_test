@@ -35,8 +35,7 @@ config :phx, Phx.Users.Guardian,
   issuer: "phx",
   secret_key: Mix.env()
 
-config :phx, Phx.Services.Redis,
-  uri: "redis://localhost:6379"
+config :phx, Phx.Services.Redis, uri: "redis://localhost:6379"
 
 config :phx, Phx.Services.IpChildren,
   rate: 2000,

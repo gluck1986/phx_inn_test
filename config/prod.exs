@@ -21,12 +21,11 @@ config :phx, PhxWeb.Endpoint,
 config :logger, level: :info
 
 config :phx, Phx.Repo,
-       url: System.get_env("DATABASE_URL"),
-       pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-       ssl: true
+  url: System.get_env("DATABASE_URL"),
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+  ssl: true
 
-config :phx, Phx.Services.Redis,
-      uri: System.get_env("REDIS_URL")
+config :phx, Phx.Services.Redis, uri: System.get_env("REDIS_URL")
 
 # ## SSL Support
 #
@@ -79,4 +78,4 @@ config :phx, Phx.Services.Redis,
 
 # Finally import the config/prod.secret.exs which should be versioned
 # separately.
-#import_config "prod.secret.exs"
+# import_config "prod.secret.exs"
